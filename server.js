@@ -11,6 +11,8 @@ let userRouter=require("./Routes/userRouter")
 let courseRouter=require("./Routes/courseRouter")
 let videoLectureRouter=require("./Routes/videoLectureRouter")
 let studyMaterialRouter=require("./Routes/studyMaterialRouter")
+let assignmentRouter=require("./Routes/assignmentRouter")
+let quizRouter=require("./Routes/quizRouter")
 
 
 // Middlewares
@@ -32,6 +34,8 @@ app.use("/user",userRouter)
 app.use("/course",courseRouter)
 app.use("/videoLecture",videoLectureRouter)
 app.use("/studyMaterial",studyMaterialRouter)
+app.use("/assignment",assignmentRouter)
+app.use("/quiz",quizRouter)
 
 
 app.get("/",(req,res)=>{
