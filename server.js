@@ -10,6 +10,7 @@ let {errorHandler}=require("./middleware/errorHandler")
 let userRouter=require("./Routes/userRouter")
 let courseRouter=require("./Routes/courseRouter")
 let videoLectureRouter=require("./Routes/videoLectureRouter")
+let studyMaterialRouter=require("./Routes/studyMaterialRouter")
 
 
 // Middlewares
@@ -30,6 +31,7 @@ app.use(cors({
 app.use("/user",userRouter)
 app.use("/course",courseRouter)
 app.use("/videoLecture",videoLectureRouter)
+app.use("/studyMaterial",studyMaterialRouter)
 
 
 app.get("/",(req,res)=>{

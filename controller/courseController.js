@@ -1,5 +1,6 @@
 let Course = require("../model/courceSchema")
 const CustomError = require("../utils/customError")
+let User=require("../model/userSchema")
 
 
 module.exports.createCourse = async (req, res, next) => {
@@ -13,6 +14,9 @@ module.exports.createCourse = async (req, res, next) => {
 
         })
         await newCourse.save()
+        await req.user.course.push(newCourse._id)
+
+        await req.user.save()
         res.status(200).json({
             message: "Course Created Successfully",
             newCourse
@@ -28,6 +32,8 @@ module.exports.deleteCourse = async (req, res, next) => {
         let { id } = req.params
         let deleteCourse = await Course.findByIdAndDelete(id)
         if (!deleteCourse) return next(new CustomError("Course not Found", 400))
+            req.user.course=req.user.course.filter((item)=> item.toString() !== id.toString())
+        await req.user.save()
         res.status(200).json({
             message:"Course deleted Successfully"
         })

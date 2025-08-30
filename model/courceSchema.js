@@ -45,6 +45,12 @@ const courseSchema = new mongoose.Schema({
       ref: "videoLecture", // linked to videoLecture model
     },
   ],
+  studyMaterial: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "studyMaterial", // linked to videoLecture model
+    },
+  ],
 
   
 
