@@ -15,7 +15,8 @@ const studyMaterialSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "course", // Reference to Course model
     },
-    uploadedBy: {
+    
+    instructor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user", // Instructor or admin
     },

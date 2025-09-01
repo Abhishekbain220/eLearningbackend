@@ -11,13 +11,16 @@ module.exports.createLecture = async (req, res, next) => {
         if (!course) return next(new CustomError("Course not Found", 400))
         let videoLecture = await VideoLecture.create({
             title, description, videoUrl, duration,
-            course: course._id
+            course: course._id,
+            instructor: req.user._id
 
         })
 
         await course.lectures.push(videoLecture._id)
         await videoLecture.save()
         await course.save()
+        await req.user.videoLecture.push(videoLecture._id)
+        await req.user.save()
         res.status(200).json({
             message: "Video Lecture Created Successfully",
             course
@@ -39,6 +42,8 @@ module.exports.deleteLecture = async (req, res, next) => {
         if (!course) return next(new CustomError("Course not Found", 400))
         course.lectures = course.lectures.filter(item => item.toString() !== deleteLecture._id.toString());
         await course.save()
+        req.user.videoLecture=req.user.videoLecture.filter((item)=> item.toString() !== lectureId.toString())
+        await req.user.save()
 
         let videoLectures = await VideoLecture.find()
         res.status(200).json({

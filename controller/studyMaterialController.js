@@ -10,13 +10,16 @@ module.exports.createStudyMaterial=async(req,res,next)=>{
         if (!course) return next(new CustomError("Course not Found", 400))
         let newStudyMaterial = await StudyMaterial.create({
             title, description, fileUrl, fileType,
-            course: course._id
+            course: course._id,
+            instructor: req.user._id,
 
         })
 
         await course.studyMaterial.push(newStudyMaterial._id)
         await newStudyMaterial.save()
         await course.save()
+        await req.user.studyMaterial.push(newStudyMaterial._id)
+        await req.user.save()
         res.status(200).json({
             message: "Study Material Created Successfully",
             course
@@ -37,6 +40,8 @@ module.exports.deleteStudyMaterial=async(req,res,next)=>{
         if(!course)return next(new CustomError("Course not Found",400))
             course.studyMaterial=course.studyMaterial.filter((item)=> item.toString() !== studyMaterialId.toString())
         await course.save()
+        req.user.studyMaterial=req.user.studyMaterial.filter((item)=> item.toString() !== studyMaterialId.toString())
+        await req.user.save()
         res.status(200).json({
             message:"Study Material deleted Successfully",
             course

@@ -12,7 +12,8 @@ module.exports.createQuiz=async(req,res,next)=>{
             title,
             description,
             questions:questions,
-            course:courseId
+            course:courseId,
+            instructor:req.user._id
         })
         if(!newQuiz)return next(new CustomError("Quiz not Created",400))
             await newQuiz.save()
@@ -20,6 +21,8 @@ module.exports.createQuiz=async(req,res,next)=>{
         if(!course)return next(new CustomError("Course not Found",400))
             course.quiz.push(newQuiz._id)
         await course.save()
+        await req.user.quiz.push(newQuiz._id)
+        await req.user.save()
         res.status(200).json({
             message:"Quiz Created Successfully",
             course,
@@ -39,6 +42,8 @@ module.exports.deleteQuiz=async(req,res,next)=>{
         if(!course)return next(new CustomError("Course not Found",400))
             course.quiz=course.quiz.filter((item)=>item.toString() !== quizId.toString())
         await course.save()
+        req.user.quiz=req.user.quiz.filter((item)=>item.toString()!==quizId.toString())
+        await req.user.save()
         res.status(200).json({
             message:"Quiz Deleted Successfully",
             course

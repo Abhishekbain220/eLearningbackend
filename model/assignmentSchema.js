@@ -7,10 +7,14 @@ const assignmentSchema = new mongoose.Schema(
             ref: "course",
             required: true,
         },
-        instructor: {
+        user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "user", // assuming User schema stores both students & instructors
         },
+        submission: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "assignmentSubmission", // assuming User schema stores both students & instructors
+        }],
         title: {
             type: String,
             required: [true, "Assignment title is required"],

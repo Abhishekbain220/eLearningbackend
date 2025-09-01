@@ -32,6 +32,30 @@ let userSchema = mongoose.Schema({
             ref: "course", // Reference to Course model
         }
     ],
+    assignment: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "assignment", // Reference to Course model
+        }
+    ],
+    quiz: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "quiz", // Reference to Course model
+        }
+    ],
+    studyMaterial: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "studyMaterial", // Reference to Course model
+        }
+    ],
+    videoLecture: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "videoLecture", // Reference to Course model
+        }
+    ],
 }, { timestamps: true })
 
 userSchema.methods.generateAuthToken = function () {

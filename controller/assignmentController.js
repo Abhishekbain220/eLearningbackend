@@ -9,7 +9,8 @@ module.exports.createAssignment = async (req, res, next) => {
         let { title, description, dueDate, maxMarks, fileURL } = req.body
         let newAssignment = await Assignment.create({
             title, description, dueDate, maxMarks, fileURL,
-            course: courseId
+            course: courseId,
+            user:req.user._id
         })
         if (!newAssignment) return next(new CustomError("Assignment not Created", 400))
         await newAssignment.save()
@@ -17,6 +18,8 @@ module.exports.createAssignment = async (req, res, next) => {
         if (!course) return next(new CustomError("Course not Found", 400))
         course.assignment.push(newAssignment._id)
         await course.save()
+        await req.user.assignment.push(newAssignment._id)
+        await req.user.save()
         res.status(200).json({
             message:"Assignment Created Successfully",
             course,
@@ -37,6 +40,8 @@ module.exports.deleteAssignment=async(req,res,next)=>{
         if(!course)return next(new CustomError("Course not found",400))
             course.assignment=course.assignment.filter((item)=>item.toString()!==assignmentId.toString())
         await course.save()
+        req.user.assignment=req.user.assignment.filter((item)=>item.toString()!==assignmentId.toString())
+        await req.user.save()
         res.status(200).json({
             message:"Assignment Deleted Successfully",
             course
