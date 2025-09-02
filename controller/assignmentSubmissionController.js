@@ -96,3 +96,19 @@ module.exports.deleteSubmission=async(req,res,next)=>{
         next(new CustomError(error,500))
     }
 }
+
+
+module.exports.getMySubmission=async(req,res,next)=>{
+    try {
+        let {assignmentId}=req.params
+        let mySubmission=await AssignmentSubmission.findOne({user:req.user._id,assignment:assignmentId})
+        if(!mySubmission)return next(new CustomError("No Submission Found",404))
+            res.status(200).json({
+                message:"My Submission fetched Successfully",
+                mySubmission
+        })
+    } catch (error) {
+        console.log(error)
+        next(new CustomError(error,500))
+    }
+}
