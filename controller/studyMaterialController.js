@@ -75,3 +75,18 @@ module.exports.updateStudyMaterial=async(req,res,next)=>{
         next(new CustomError(error.message,500))
     }
 }
+
+module.exports.getAllStudyMaterial=async(req,res,next)=>{
+    try {
+        let {courseId}=req.params
+        let allStydyMaterials=await StudyMaterial.find({course:courseId})
+        if(!allStydyMaterials)return next(new CustomError("No Study Materials Found",400))
+        res.status(200).json({
+            message:"All Study Materials Fetched Successfully",
+            allStydyMaterials
+        })
+    } catch (error) {
+        console.log(error)
+        next(new CustomError(error.message,500))
+    }
+}

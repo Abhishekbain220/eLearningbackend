@@ -56,6 +56,12 @@ let userSchema = mongoose.Schema({
             ref: "videoLecture", // Reference to Course model
         }
     ],
+    assignmentSubmission: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "videoLecture", // Reference to Course model
+        }
+    ],
 }, { timestamps: true })
 
 userSchema.methods.generateAuthToken = function () {

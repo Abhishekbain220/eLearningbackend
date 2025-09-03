@@ -75,3 +75,18 @@ module.exports.updateAssignment=async(req,res,next)=>{
         next(new CustomError(error.message))
     }
 }
+
+module.exports.getAllAssignment=async(req,res,next)=>{
+    try {
+        let {courseId}=req.params
+        let allAssignment=await Assignment.find({course:courseId})
+        if(!allAssignment)return next(new CustomError("No Assignment Found",400))
+        res.status(200).json({
+            message:"All Assignment Fetched Successfully",
+            allAssignment
+        })
+    } catch (error) {
+        console.log(error)
+        next(new CustomError(error.message,500))
+    }
+}

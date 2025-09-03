@@ -73,3 +73,18 @@ module.exports.updateQuiz=async(req,res,next)=>{
         next(new CustomError(error.message,500))
     }
 }
+
+module.exports.getAllQuiz=async(req,res,next)=>{
+    try {
+        let {courseId}=req.params
+        let AllQuiz=await Quiz.find({course:courseId})
+        if(!AllQuiz)return next(new CustomError("No Quiz Found",400))
+        res.status(200).json({
+            message:"All Quiz fetched Successfully",
+            AllQuiz
+        })  
+    } catch (error) {
+        console.log(error)
+        next(new CustomError(error.message,500))
+    }
+}

@@ -81,4 +81,18 @@ module.exports.updateLecture=async(req,res,next)=>{
     }
 }
 
+module.exports.getAllLectures=async(req,res,next)=>{
+    try {
+        let {courseId}=req.params
+        let allLectures=await VideoLecture.find({course:courseId})
+        if(!allLectures)return next(new CustomError("No Lecture Found",400))
+        res.status(200).json({
+            message:"All Lectures Fetched Successfully",
+            allLectures
+        })
+    } catch (error) {
+        console.log(error)
+        next(new CustomError(error.message,500))
+    }
+}
 
