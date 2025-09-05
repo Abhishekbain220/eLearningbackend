@@ -8,6 +8,7 @@ exports.authenticateStudent = async (req, res, next) => {
         let decoded = jwt.verify(token, process.env.KEY)
         let user = await User.findById(decoded.id)
         if (!user) return res.status(401).json({ message: "Unauthorised" })
+            req.user=user
             if(user.role!=="student") return res.status(401).json({message:"This is Protected Route for Students"})
         
         next()

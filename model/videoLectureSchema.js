@@ -25,6 +25,10 @@ let videoLectureSchema = new mongoose.Schema({
     ref: "user", // if instructors are stored in Users collection
     
   },
+  studentsWatched: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user" // users who have watched this lecture
+  }]
   
 },{timestamps:true});
 

@@ -8,6 +8,7 @@ exports.authenticateInstructor = async (req, res, next) => {
         let decoded = jwt.verify(token, process.env.KEY)
         let user = await User.findById(decoded.id)
         if (!user) return res.status(401).json({ message: "Unauthorised" })
+            req.user=user
             if(user.role!=="instructor" && user.role!=="admin") return res.status(401).json({message:"This is Protected Route for Instructor and Admin only"})
         
         next()

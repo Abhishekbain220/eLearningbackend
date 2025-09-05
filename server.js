@@ -16,6 +16,7 @@ let quizRouter=require("./Routes/quizRouter")
 let assignmentSubmissionRouter=require("./Routes/assignmentSubmissionRouter")
 let quizSubmissionRouter=require("./Routes/quizSubmissionRouter")
 let adminRouter=require("./Routes/adminRouter")
+let generateCertificateRouter=require("./Routes/generateCertificateRouter")
 
 
 // Middlewares
@@ -42,6 +43,7 @@ app.use("/quiz",quizRouter)
 app.use("/assignmentSubmission",assignmentSubmissionRouter)
 app.use("/quizSubmission",quizSubmissionRouter)
 app.use("/admin",adminRouter)
+app.use("/generateCertificate",generateCertificateRouter)
 
 
 app.get("/",(req,res)=>{

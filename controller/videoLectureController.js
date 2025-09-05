@@ -96,3 +96,20 @@ module.exports.getAllLectures=async(req,res,next)=>{
     }
 }
 
+module.exports.watchLecture=async(req,res,next)=>{
+    try {
+        let {lectureId}=req.params
+        let lecture=await VideoLecture.findById(lectureId)
+        if(!lecture)return next(new CustomError("Lecture not Found",400))
+        lecture.studentsWatched.push(req.user._id)
+    await lecture.save()
+    res.status(200).json({
+        message:"Lecture Watched Successfully",
+        lecture
+    })
+    } catch (error) {
+        console.log(error)
+        next(new CustomError(error.message,500))
+    }
+}
+
