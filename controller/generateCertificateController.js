@@ -32,7 +32,8 @@ module.exports.generateCertificate = async (req, res, next) => {
         res.status(200).json({
             success: true,
             message: "Certificate Generated Successfully",
-            course
+            course,
+            user:req.user
         })
 
     } catch (error) {
