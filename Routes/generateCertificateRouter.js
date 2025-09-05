@@ -5,6 +5,6 @@ const { authenticateAdmin } = require("../middleware/adminMiddleware")
 const { authenticateStudent } = require("../middleware/studentMiddleware")
 let router=express.Router()
 
-router.post("/generateCertificate/:courseId",authenticateUser,authenticateStudent,generateCertificate)
+router.post("/generateCertificate/:courseId",authenticateStudent,generateCertificate)
 
 module.exports=router

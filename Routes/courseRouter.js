@@ -5,9 +5,9 @@ const { authenticateInstructor } = require("../middleware/instructorMiddleware")
 let router=express.Router()
 
 router.get("/viewCourse",authenticateUser,getAllCourse)
-router.get("/myCourses",authenticateUser,authenticateInstructor,getMyCourses)
-router.post("/createCourse",authenticateUser,authenticateInstructor,createCourse)
-router.delete("/deleteCourse/:id",authenticateUser,authenticateInstructor,deleteCourse)
-router.put("/updateCourse/:id",authenticateUser,authenticateInstructor,updateCourse)
+router.get("/myCourses",authenticateInstructor,getMyCourses)
+router.post("/createCourse",authenticateInstructor,createCourse)
+router.delete("/deleteCourse/:id",authenticateInstructor,deleteCourse)
+router.put("/updateCourse/:id",authenticateInstructor,updateCourse)
 
 module.exports=router

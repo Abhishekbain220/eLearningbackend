@@ -4,9 +4,9 @@ const { createAssignment, deleteAssignment, updateAssignment, getAllAssignment }
 const { authenticateInstructor } = require("../middleware/instructorMiddleware")
 let router=express.Router()
 
-router.post("/createAssignment/:courseId",authenticateUser,authenticateInstructor,createAssignment)
-router.delete("/deleteAssignment/:assignmentId",authenticateUser,authenticateInstructor,deleteAssignment)
-router.put("/updateAssignment/:assignmentId",authenticateUser,authenticateInstructor,updateAssignment)
+router.post("/createAssignment/:courseId",authenticateInstructor,createAssignment)
+router.delete("/deleteAssignment/:assignmentId",authenticateInstructor,deleteAssignment)
+router.put("/updateAssignment/:assignmentId",authenticateInstructor,updateAssignment)
 router.get("/getAllAssignment/:courseId",authenticateUser,getAllAssignment)
 
 module.exports=router

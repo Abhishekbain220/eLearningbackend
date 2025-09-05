@@ -4,7 +4,7 @@ const { authenticateUser } = require("../middleware/authMiddleware")
 const { authenticateAdmin } = require("../middleware/adminMiddleware")
 let router=express.Router()
 
-router.get("/getAllUsers",authenticateUser,authenticateAdmin,getAllUsers,)
-router.delete("/deleteUser/:userId",authenticateUser,authenticateAdmin,deleteUser)
+router.get("/getAllUsers",authenticateAdmin,getAllUsers,)
+router.delete("/deleteUser/:userId",authenticateAdmin,deleteUser)
 
 module.exports=router
